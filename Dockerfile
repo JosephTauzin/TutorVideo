@@ -1,0 +1,20 @@
+FROM node:18-alpine 
+# https://hub.docker.com/_/node
+
+WORKDIR /src
+
+RUN apk add --no-cache \
+	bash \
+	vim
+
+COPY package.json .
+COPY .env.template ./.env
+
+RUN npm install
+
+COPY app app
+COPY public public
+
+EXPOSE 8080/tcp
+
+CMD npm start
